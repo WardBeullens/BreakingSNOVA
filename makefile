@@ -108,7 +108,6 @@ build/sign.o: build/snova.o
 
 find_vulnerable_key: info build/rng.o build/snova.o build/sign.o $(STATICLIB)
 	$(CC) $(CFLAGS) $(SNOVA_PARAMS) $(OLIST) ./attack/find_vulnerable_key.c ./build/sign.o -o find_vulnerable_key ${LIBS}
-	./find_vulnerable_key 
 
 test: info build/rng.o build/snova.o $(STATICLIB)
 	$(CC) $(CFLAGS) $(SNOVA_PARAMS) $(OLIST) ./test/test.c -o test.a ${LIBS}
