@@ -1,0 +1,3 @@
+[submodule "m4gb"]
+	path = m4gb
+	url = git@github.com:cr-marcstevens/m4gb.git
