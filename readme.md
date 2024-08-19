@@ -1,12 +1,63 @@
+# Demonstration of weak key attack against SNOVA
+
 This repo has a demonstration of a weak-key forgery attack against SNOVA with parameter set (v,o,q,l) = (37, 17, 16, 2)
 
-The attack runs in a few minutes, and works against one out of roughly every 140000 public keys. 
+The attack runs in a few minutes and works against one out of roughly every 140000 public keys. 
 
 This repo contains a weak key pk.txt on which the attack is performed. You can run the attack on your own weak key by replacing the key in pk.txt. 
-You can generate your own weak keys by our weak key finding script.
+You can generate your own weak keys with our weak key finding script. 
 
+This project builds on the implementation of SNOVA by the SNOVA team. The SNOVA readme can be found below.
 
+## Running the attack
 
+Before running the attack make sure m4gb is installed in the m4gb subfolder.
+
+If necessary, run 
+
+```
+git submodule update --init
+```
+
+to download m4gb. Follow the instructions in the 4mgb project to install m4gb. 
+If m4gb is installed, you can run the sage script: 
+
+```
+sage Attack_demo.sage
+```
+
+## Searching for weak keys 
+
+You can compile the key search program using the makefile: 
+
+```
+make find_vulnerable_key
+```
+
+Then run the program with two integers as arguments. Running the program with arguments X and Y generates Y public keys and checks if they are weak. The keys are generated deterministically as in the NIST script for generating KATs. 
+The first X keys are skipped (This can be useful if you want to parallelize the search).
+The first weak public key that is found is printed on the screen. You can copy-paste it into the pk.txt file to run the attack on the weak key you found.
+
+For example, running
+
+```
+./find_vulnerable_key 0 1000000
+``` 
+
+will print a weak public key, as well as: 
+
+```
+first key found after 734846 attempts
+tries: 1000000, tries/second = 2941.167821
+lowest ranks:
+ 0: 0, 0.000000
+ 1: 4, 0.000004
+ 2: 20775, 0.020775
+ 3: 979221, 0.979221
+ 4: 0, 0.000000
+```
+
+Indicating that 4 out of the first 1.000.000 keys is vulnerable to the weak key attack with rank 1. 
 
 README from SNOVA implementation
 =======
